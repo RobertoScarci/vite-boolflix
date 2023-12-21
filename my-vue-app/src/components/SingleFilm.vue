@@ -3,6 +3,11 @@
 
     export default {
     name: "SingleFilm",
+    data() {
+        return {
+            currentFilm: []
+        }
+    },
     methods: {
         getStars(vote) {
             let stars = ""
@@ -15,6 +20,18 @@
             }
             return stars;
 
+        },
+        getCast(id) {
+            axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+                params: {
+                api_key: '2902af90259528a807e51aa892d65a46',
+                language: 'it-IT',
+                append_to_response: 'credits'
+                }
+            })
+            .then( response => {
+                this.currentFilm = response.data;
+            })
         }
     },
     components: {
@@ -30,15 +47,8 @@
 </script>
 
 <template>
-    <div class="card col-2 mb-3 me-3">
-        <img :src="(movie.poster_path != null) ? `http://image.tmdb.org/t/p/w342/${movie.poster_path}` : '/placeholder.jpg' " class="card-img-top mt-2" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{ movie.title }}</h5>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Lingua: <lang-flag :iso="movie.original_language"/> </li>
-            <li class="list-group-item">Voto: {{ getStars(movie.vote_average) }} </li>
-        </ul>
+    <div class="col-2 mb-4 p-1">
+        <img :src="(movie.poster_path != null) ? `http://image.tmdb.org/t/p/w342/${movie.poster_path}` : '/placeholder.jpg' " class="card-img-top " alt="...">
     </div>
 </template>
 
