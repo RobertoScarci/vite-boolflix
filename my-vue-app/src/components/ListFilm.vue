@@ -20,6 +20,7 @@
 <template>
     <div class="container-fluid">
         <div class="row justify-content-center" v-if="store.movieList.length > 0">
+            <h4 class="text-white">ORIGINALI NETFLIX</h4>
             <SingleFilm v-for="movie in store.movieList" :movie="movie"/>
             <SingleTvSeries v-for="tv in store.tvList" :key="tv.id" :tv="tv"/>
         </div>
@@ -30,5 +31,9 @@
 </template>
 
 <style lang="scss" scoped>
+
+div.row{
+    margin: 0 .5rem;
+}
 
 </style>
